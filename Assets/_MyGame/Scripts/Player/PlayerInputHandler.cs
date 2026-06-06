@@ -1,0 +1,53 @@
+using System;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PlayerInputHandler : MonoBehaviour
+{
+    public Action OnDodgeInput;
+    public Action OnJumpInput;
+
+    public Vector3 MovementInput { get; private set;}
+    
+    [Header("Input Actions References")]
+    [SerializeField] private InputActionReference moveActionReference;
+    [SerializeField] private InputActionReference dodgeActionReference;
+    [SerializeField] private InputActionReference jumpActionReference;
+
+    private void OnEnable()
+    {
+        moveActionReference.action.Enable();
+        dodgeActionReference.action.Enable();
+        jumpActionReference.action.Enable();
+    }
+
+    private void OnDisable()
+    {
+        moveActionReference.action.Disable();
+        dodgeActionReference.action.Disable();
+        jumpActionReference.action.Disable();
+    }
+
+    private void Update()
+    {
+        ReadInput();
+    }
+    private void ReadInput()
+    {
+        MovementInput = new Vector3
+        (
+            moveActionReference.action.ReadValue<Vector2>().x,
+            0,
+            moveActionReference.action.ReadValue<Vector2>().y 
+        );
+        if(dodgeActionReference.action.WasPressedThisFrame())
+        {
+            OnDodgeInput?.Invoke();
+        }
+
+        if (jumpActionReference.action.WasPressedThisFrame())
+        {
+            OnJumpInput?.Invoke();
+        }
+    }
+}
