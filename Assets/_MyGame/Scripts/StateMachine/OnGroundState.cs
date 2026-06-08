@@ -1,36 +1,39 @@
 
-public class OnGroundState : IState
+using UnityEngine;
+
+public abstract class OnGroundState : IState
 {
 
-    private PlayerCharacter _playerCharacter;
+    protected readonly PlayerAnimator _animator;
+    protected readonly PlayerInputHandler _input;
+    protected readonly StateMachine _stateMachine;
+    protected readonly PlayerMovement _movement;
+    protected readonly CharacterController _characterController;
     
-    public OnGroundState(PlayerCharacter playerCharacter)
+    protected OnGroundState(PlayerAnimator animator, PlayerInputHandler input, StateMachine stateMachine, PlayerMovement character,CharacterController characterController)
     {
-        _playerCharacter = playerCharacter;
-        
+        _animator = animator;
+        _input = input;
+        _stateMachine = stateMachine;
+        _movement = character;
+        _characterController = characterController;
     }
-    public void Enter()
+    public virtual void Enter()
     {
-        _playerCharacter.PlayerAnimator.SetOnGroundBool(true);
-        _playerCharacter.PlayerMovement.OnJump += _playerCharacter.PlayerAnimator.SetJumpTrigger;
+        _animator.SetOnGroundBool(true);
     }
 
-    public void Execute()
+    public virtual void Execute()
     {
-        if (!_playerCharacter.CharacterController.isGrounded)
+        if (!_characterController.isGrounded)
         {
-            _playerCharacter.PlayerStateMachine.TransitionTo(_playerCharacter.PlayerStateMachine.InAirState);
-        }
-
-        if (_playerCharacter.PlayerInputHandler.MovementInput.sqrMagnitude > 0)
-        {
-            _playerCharacter.PlayerStateMachine.TransitionTo(_playerCharacter.PlayerStateMachine.MovingState);
+            _stateMachine.ChangeState<FallingState>();
         }
     }
 
-    public void Exit()
+    public virtual void Exit()
     {
-        _playerCharacter.PlayerAnimator.SetOnGroundBool(false);
-        _playerCharacter.PlayerMovement.OnJump -= _playerCharacter.PlayerAnimator.SetJumpTrigger;
+        _animator.SetOnGroundBool(false);
+        _movement.OnJump -= _animator.SetJumpTrigger;
     }
 }

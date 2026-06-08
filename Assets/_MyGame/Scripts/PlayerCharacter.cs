@@ -1,28 +1,21 @@
-using System;
+
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
+using Zenject;
 
 public class PlayerCharacter : Character
 {
-    [HideInInspector] public PlayerStateMachine PlayerStateMachine;
-    [HideInInspector] public PlayerMovement PlayerMovement;
-    [HideInInspector] public PlayerAnimator PlayerAnimator;
-    [HideInInspector] public CharacterController CharacterController;
-    [HideInInspector] public PlayerInputHandler PlayerInputHandler;
+    private StateMachine _stateMachine;
+     [Inject]
+     private void Construct(StateMachine stateMachine)
+     {
+         _stateMachine = stateMachine;
+     }
     protected override void Initialize()
     {
-        CharacterController = GetComponent<CharacterController>();
-        PlayerAnimator = GetComponent<PlayerAnimator>();
-        PlayerMovement = GetComponent<PlayerMovement>();
-        PlayerInputHandler = GetComponent<PlayerInputHandler>();
-        
-        PlayerStateMachine = new PlayerStateMachine(this);
-        PlayerStateMachine.Initialize(PlayerStateMachine.OnGroundState);
+        _stateMachine.Initialize<IdleState>();
     }
-    
     private void Update()
     {
-        PlayerStateMachine.Execute();
+        _stateMachine.Execute();
     }
 }

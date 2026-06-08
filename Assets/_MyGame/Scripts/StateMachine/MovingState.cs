@@ -1,31 +1,32 @@
 
-public class MovingState : IState
-{
-    private PlayerCharacter _playerCharacter;
-    public MovingState(PlayerCharacter playerCharacter)
-    {
-        _playerCharacter = playerCharacter;
-    }
-    public void Enter()
-    {
-        _playerCharacter.PlayerAnimator.SetIsMoving(true);
-    }
+using UnityEngine;
 
-    public void Execute()
+public class MovingState : OnGroundState
+{
+    public MovingState(PlayerAnimator animator, PlayerInputHandler input, StateMachine stateMachine, PlayerMovement character, CharacterController characterController) : base(animator, input, stateMachine, character, characterController)
     {
-        if (!_playerCharacter.CharacterController.isGrounded)
-        {
-            _playerCharacter.PlayerStateMachine.TransitionTo(_playerCharacter.PlayerStateMachine.InAirState);
-        }
-        if (_playerCharacter.PlayerInputHandler.MovementInput.sqrMagnitude <= 0)
-        {
-            _playerCharacter.PlayerStateMachine.TransitionTo(_playerCharacter.PlayerStateMachine.OnGroundState);
-        }
         
     }
 
-    public void Exit()
+    public override void Enter()
     {
-        _playerCharacter.PlayerAnimator.SetIsMoving(false);
+        base.Enter();
+        _animator.SetIsMoving(true);
+        
+    }
+
+    public override void Execute()
+    {
+        base.Execute();
+        if (_input.MovementInput.sqrMagnitude <= 0.01f)
+        {
+            _stateMachine.ChangeState<IdleState>();
+        }
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        _animator.SetIsMoving(false);
     }
 }

@@ -4,10 +4,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Action OnJump;
-   
-    public Vector3 Velocity => _velocity;
-    public bool IsMoving => _isMoving; 
-
+    
+    public CharacterController CharacterController => _characterController;
     [SerializeField] private float speed;
     [SerializeField] private float dodgeDistance;
     [SerializeField] private float jumpPower;

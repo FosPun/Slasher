@@ -1,28 +1,41 @@
-public class InAirState : IState
+using UnityEngine;
+
+public abstract class InAirState : IState
 {
 
-    private PlayerCharacter _playerCharacter;
+    protected readonly PlayerAnimator _animator;
+    protected readonly PlayerInputHandler _input;
+    protected readonly StateMachine _stateMachine;
+    protected readonly PlayerMovement _movement;
+    protected readonly CharacterController _characterController;
     
-    public InAirState(PlayerCharacter playerCharacter)
+    protected InAirState(PlayerAnimator animator, PlayerInputHandler input, StateMachine stateMachine, PlayerMovement character,CharacterController characterController)
     {
-        _playerCharacter = playerCharacter; 
+        _animator = animator;
+        _input = input;
+        _stateMachine = stateMachine;
+        _movement = character;
+        _characterController = characterController;
     }
-    
-    public void Enter()
+    public virtual void Enter()
     {
-        _playerCharacter.PlayerAnimator.SetInAir(true);
+        _animator.SetInAir(true);
     }
 
-    public void Execute()
+    public virtual void Execute()
     {
-        if (_playerCharacter.CharacterController.isGrounded)
+        if (_characterController.isGrounded && _input.MovementInput.sqrMagnitude > 0)
         {
-            _playerCharacter.PlayerStateMachine.TransitionTo(_playerCharacter.PlayerStateMachine.OnGroundState);
+            _stateMachine.ChangeState<MovingState>();
+        }
+        else if (_characterController.isGrounded)
+        {
+            _stateMachine.ChangeState<IdleState>();
         }
     }
 
-    public void Exit()
+    public virtual void Exit()
     {
-        _playerCharacter.PlayerAnimator.SetInAir(false);
+        _animator.SetInAir(false);
     }
 }

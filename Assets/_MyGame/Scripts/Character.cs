@@ -1,27 +1,18 @@
+using System;
 using UnityEngine;
 
 public abstract class Character: MonoBehaviour
 {
     [SerializeField] private CharacteristicsSO _characteristicsSO;
-    public float MovementSpeed{get; private set;}
-    public float AttackSpeed{get; private set;}
-    public float Health{get;private set;}
-    public float Damage{get; private set;}
+    public float MovementSpeed => _characteristicsSO.movementSpeed;
+    public float AttackSpeed => _characteristicsSO.attackSpeed;
+    public float Health => _characteristicsSO.health;
+    public float Damage => _characteristicsSO.damage;
 
     protected abstract void Initialize();
-
-
-    protected void Awake()
+    
+    private void Start()
     {
-        SetAttributes();
         Initialize();
-    }
-
-    private void SetAttributes()
-    {
-        MovementSpeed = _characteristicsSO.movementSpeed;
-        AttackSpeed = _characteristicsSO.attackSpeed;
-        Health = _characteristicsSO.health;
-        Damage = _characteristicsSO.damage;
     }
 }
