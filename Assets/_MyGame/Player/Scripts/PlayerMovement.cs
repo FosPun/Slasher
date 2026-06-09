@@ -1,28 +1,35 @@
 using System;
 using UnityEngine;
+using Zenject;
 
 public class PlayerMovement : MonoBehaviour
 {
     public Action OnJump;
     
     public CharacterController CharacterController => _characterController;
+
+    public Vector3 Velocity => _velocity;
+    public float JumpPower => jumpPower;
     [SerializeField] private float speed;
     [SerializeField] private float dodgeDistance;
     [SerializeField] private float jumpPower;
     [SerializeField] private float gravity;
     [SerializeField] private float rotationSpeed;
-   
-    private bool _isMoving = true;
     
     private PlayerInputHandler _playerInputHandler;
     private CharacterController _characterController;
 
+    private bool _isMoving = true;
     private Vector3 _velocity;
+
+    [Inject]
+    private void Construct(PlayerInputHandler playerInputHandler, CharacterController characterController)
+    {
+        _playerInputHandler = playerInputHandler;
+        _characterController = characterController;
+    }
     private void Awake()
     {
-        _characterController = GetComponent<CharacterController>();
-        _playerInputHandler = GetComponent<PlayerInputHandler>();
-
         speed = GetComponent<Character>().MovementSpeed;
     }
 
@@ -49,16 +56,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void RotationHandler()
     {
-        if (!(_playerInputHandler.MovementInput.sqrMagnitude > 0) || !_characterController.isGrounded) return;
-        /*Quaternion targetRotation = Quaternion.LookRotation(_playerInputHandler.MovementInput);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);*/
-        Quaternion targetRotation = Quaternion.LookRotation(_playerInputHandler.MovementInput.normalized);
-        transform.rotation = targetRotation;
+        if (_playerInputHandler.MovementInput.sqrMagnitude <= 0.01f || !_characterController.isGrounded) return;
+
+        Vector3 inputDirection = new Vector3(_playerInputHandler.MovementInput.x, 0, _playerInputHandler.MovementInput.z).normalized;
+        Quaternion targetRotation = Quaternion.LookRotation(inputDirection);
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
     private void GravityHandler()
     {
-        if (_characterController.isGrounded)
+        if (_characterController.isGrounded && _velocity.y < 0)
         {
             _velocity.y = -2f;
         }
@@ -76,9 +84,8 @@ public class PlayerMovement : MonoBehaviour
     private void JumpHandler()
     {
         if (!_characterController.isGrounded) return;
-        _characterController.Move( Vector3.up * jumpPower);
+        _velocity.y = jumpPower;
         OnJump?.Invoke();
-        
     }
     
     private void MovementHandler()

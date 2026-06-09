@@ -2,12 +2,7 @@ using UnityEngine;
 
 public class IdleState : OnGroundState
 {
- 
-    public IdleState(PlayerAnimator animator, PlayerInputHandler input, StateMachine stateMachine, PlayerMovement character, CharacterController characterController) : base(animator, input, stateMachine, character, characterController)
-    {
-        
-    }
-
+    
     public override void Enter()
     {
         base.Enter();

@@ -1,5 +1,3 @@
-
-using UnityEngine;
 using Zenject;
 
 public class PlayerCharacter : Character

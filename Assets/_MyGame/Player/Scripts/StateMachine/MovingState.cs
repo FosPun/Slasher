@@ -3,11 +3,7 @@ using UnityEngine;
 
 public class MovingState : OnGroundState
 {
-    public MovingState(PlayerAnimator animator, PlayerInputHandler input, StateMachine stateMachine, PlayerMovement character, CharacterController characterController) : base(animator, input, stateMachine, character, characterController)
-    {
-        
-    }
-
+    
     public override void Enter()
     {
         base.Enter();

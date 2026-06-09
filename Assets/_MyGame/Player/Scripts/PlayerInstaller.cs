@@ -22,9 +22,10 @@ public class PlayerInstaller : MonoInstaller
         Container.Bind<StateMachine>().AsSingle();
 
         // States for StateMachine
-        Container.Bind<IdleState>().AsSingle();
-        Container.Bind<MovingState>().AsSingle();
-        Container.Bind<FallingState>().AsSingle();
+        Container.Bind<IState>().To<IdleState>().AsSingle();
+        Container.Bind<IState>().To<MovingState>().AsSingle();
+        Container.Bind<IState>().To<FallingState>().AsSingle();
+        Container.Bind<IState>().To<JumpingState>().AsSingle();
 
         Container.BindInstance(_playerCharacter);
     }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Zenject;
 
 public class StateMachine
 {
@@ -8,7 +9,8 @@ public class StateMachine
     public event Action<IState> StateChanged;
     private readonly Dictionary<Type, IState> _states = new Dictionary<Type, IState>();
 
-    public StateMachine(List<IState> states)
+    [Inject]
+    private void Construct(List<IState> states)
     {
         foreach (var state in states)
         {
