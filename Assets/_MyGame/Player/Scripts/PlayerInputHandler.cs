@@ -6,6 +6,8 @@ public class PlayerInputHandler : MonoBehaviour
 {
     public Action OnDodgeInput;
     public Action OnJumpInput;
+    public Action OnLightInput;
+    public Action OnHeavyInput;
 
     public Vector3 MovementInput { get; private set;}
     
@@ -13,12 +15,16 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private InputActionReference moveActionReference;
     [SerializeField] private InputActionReference dodgeActionReference;
     [SerializeField] private InputActionReference jumpActionReference;
+    [SerializeField] private InputActionReference lightActionReference;
+    [SerializeField] private InputActionReference heavyActionReference;
 
     private void OnEnable()
     {
         moveActionReference.action.Enable();
         dodgeActionReference.action.Enable();
         jumpActionReference.action.Enable();
+        lightActionReference.action.Enable();
+        heavyActionReference.action.Enable();
     }
 
     private void OnDisable()
@@ -26,6 +32,8 @@ public class PlayerInputHandler : MonoBehaviour
         moveActionReference.action.Disable();
         dodgeActionReference.action.Disable();
         jumpActionReference.action.Disable();
+        lightActionReference.action.Disable();
+        heavyActionReference.action.Disable();
     }
 
     private void Update()
@@ -48,6 +56,15 @@ public class PlayerInputHandler : MonoBehaviour
         if (jumpActionReference.action.WasPressedThisFrame())
         {
             OnJumpInput?.Invoke();
+        }
+
+        if (lightActionReference.action.WasPressedThisFrame())
+        {
+            OnLightInput?.Invoke();
+        }
+        if (heavyActionReference.action.WasPressedThisFrame())
+        {
+            OnHeavyInput?.Invoke();
         }
     }
 }

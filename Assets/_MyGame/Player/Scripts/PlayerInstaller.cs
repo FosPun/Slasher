@@ -9,10 +9,12 @@ public class PlayerInstaller : MonoInstaller
     [SerializeField] private CharacterController _characterController;
     [SerializeField] private PlayerInputHandler _playerInputHandler;
     [SerializeField] private PlayerMovement _playerMovement;
+    [SerializeField] private Animator _animator;
 
     public override void InstallBindings()
     {
         //Components
+        Container.BindInstance(_animator);
         Container.BindInstance(_playerAnimator);
         Container.BindInstance(_characterController);
         Container.BindInstance(_playerInputHandler);

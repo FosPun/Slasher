@@ -1,7 +1,7 @@
-using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class ComboTransition : MonoBehaviour
+using UnityEngine.InputSystem;
+[System.Serializable]
+public class ComboTransition
 {
     public InputActionReference InputButton;
     public AttackSO NextAttack;
