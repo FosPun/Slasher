@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1909656622613754696}
   - component: {fileID: 3800114095456832442}
   - component: {fileID: 6054298381980815030}
-  - component: {fileID: 8602135279762803768}
   - component: {fileID: 136458937045444570}
   - component: {fileID: 6314857479054439709}
+  - component: {fileID: 4966090376521844945}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -79,25 +79,6 @@ MonoBehaviour:
   jumpPower: 10
   gravity: -9.81
   rotationSpeed: 8
---- !u!114 &8602135279762803768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1951971011281897352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f2efbc558989e244891af8bd58a8141, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimator
-  movingBoolName: IsMoving
-  airBoolName: InAir
-  onGroundBoolName: OnGround
-  idleBoolName: IsIdle
-  jumpBoolName: IsJumping
-  jumpTriggerName: Jump
-  _animator: {fileID: 1588241888817135206}
 --- !u!114 &136458937045444570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,6 +94,8 @@ MonoBehaviour:
   moveActionReference: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   dodgeActionReference: {fileID: -7471211009204490832, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   jumpActionReference: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  lightActionReference: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  heavyActionReference: {fileID: -35031751460895315, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!114 &6314857479054439709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,6 +109,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCharacter
   _characteristicsSO: {fileID: 11400000, guid: 3e8ffbe64f04d6747b6cbe093ca1cd43, type: 2}
+--- !u!114 &4966090376521844945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1951971011281897352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 791826b271232f24586513752d33af54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatManager
+  CurrentAttack: {fileID: 11400000, guid: af87bb9abbb8d384ba16e3c638279a58, type: 2}
 --- !u!1001 &5143115433348924407
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -297,15 +293,40 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d0508224db4a7b44696397c9269d23e6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3375853285421016577}
   m_SourcePrefab: {fileID: 100100000, guid: d0508224db4a7b44696397c9269d23e6, type: 3}
---- !u!95 &1588241888817135206 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: d0508224db4a7b44696397c9269d23e6, type: 3}
-  m_PrefabInstance: {fileID: 5143115433348924407}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4677759253156127772 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d0508224db4a7b44696397c9269d23e6, type: 3}
   m_PrefabInstance: {fileID: 5143115433348924407}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5449757890373664422 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d0508224db4a7b44696397c9269d23e6, type: 3}
+  m_PrefabInstance: {fileID: 5143115433348924407}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3375853285421016577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5449757890373664422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f2efbc558989e244891af8bd58a8141, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimator
+  movingBoolName: IsMoving
+  airBoolName: InAir
+  onGroundBoolName: OnGround
+  idleBoolName: IsIdle
+  jumpBoolName: IsJumping
+  attackBoolName: IsAttacking
+  jumpTriggerName: Jump
+  attackStateName: AttackState
+  baseAttackClip: {fileID: 7400000, guid: c142f3d65ae29184e9cfc2fc3e30f10c, type: 2}
+  crossFadeDuration: 0.2

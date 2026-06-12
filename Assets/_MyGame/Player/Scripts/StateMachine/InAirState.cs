@@ -8,7 +8,6 @@ public abstract class InAirState : PlayerState
     {
         base.Enter();
         _animator.SetInAir(true);
-        Debug.Log(_movement.Velocity);
     }
 
     public override void Execute()

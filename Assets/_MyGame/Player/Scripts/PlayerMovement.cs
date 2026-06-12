@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController CharacterController => _characterController;
 
     public Vector3 Velocity => _velocity;
-    public float JumpPower => jumpPower;
     [SerializeField] private float speed;
     [SerializeField] private float dodgeDistance;
     [SerializeField] private float jumpPower;
@@ -20,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController _characterController;
 
     private bool _isMoving = true;
+    private bool _canMove = true;
     private Vector3 _velocity;
 
     [Inject]
@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void RotationHandler()
     {
-        if (_playerInputHandler.MovementInput.sqrMagnitude <= 0.01f || !_characterController.isGrounded) return;
+        if (_playerInputHandler.MovementInput.sqrMagnitude <= 0.01f || !_canMove) return;
 
         Vector3 inputDirection = new Vector3(_playerInputHandler.MovementInput.x, 0, _playerInputHandler.MovementInput.z).normalized;
         Quaternion targetRotation = Quaternion.LookRotation(inputDirection);
@@ -90,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
     
     private void MovementHandler()
     {
-            if(!_isMoving && _playerInputHandler.MovementInput.sqrMagnitude < 0 || !_characterController.isGrounded) return;
+            if(!_isMoving && _playerInputHandler.MovementInput.sqrMagnitude < 0 || !_canMove) return;
             _velocity.x =  _playerInputHandler.MovementInput.x * speed;
             _velocity.z =  _playerInputHandler.MovementInput.z * speed;
     }
@@ -98,5 +98,11 @@ public class PlayerMovement : MonoBehaviour
     {
         _characterController.Move(_velocity * Time.deltaTime);
         _isMoving = Mathf.Abs(_velocity.x) + Mathf.Abs(_velocity.z) > 0;
+    }
+
+    public void MovementSwitch(bool b)
+    {
+        _velocity = new Vector3(0, 0, 0);
+        _canMove = b;
     }
 }

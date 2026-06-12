@@ -28,6 +28,7 @@ public class PlayerInstaller : MonoInstaller
         Container.Bind<IState>().To<MovingState>().AsSingle();
         Container.Bind<IState>().To<FallingState>().AsSingle();
         Container.Bind<IState>().To<JumpingState>().AsSingle();
+        Container.Bind<IState>().To<AttackState>().AsSingle();
 
         Container.BindInstance(_playerCharacter);
     }

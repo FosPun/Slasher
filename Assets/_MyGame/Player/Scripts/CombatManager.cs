@@ -1,37 +1,32 @@
-using System;
 using UnityEngine;
-using UnityEngine.Animations;
-using UnityEngine.Playables;
 using Zenject;
 
 public class CombatManager : MonoBehaviour
 {
-    [Inject] PlayerInputHandler _playerInputHandler;
-    [Inject] PlayerAnimator _playerAnimator;
-    public AttackSO CurrentAttack;
-    [SerializeField] private AttackSO LightStart;
-    [SerializeField] private AttackSO HeavyStart;
+    [SerializeField] private AttackSO CurrentAttack;
     
+    private PlayerInputHandler _playerInputHandler;
+    private PlayerCharacter _playerCharacter;
+    
+
+    [Inject]
+    private void Construct(PlayerInputHandler playerInputHandler, PlayerCharacter playerCharacter)
+         {
+        _playerInputHandler = playerInputHandler;
+        _playerCharacter = playerCharacter;
+         }
     private void OnEnable()
     {
-        _playerInputHandler.OnLightInput += Execute;
-        _playerInputHandler.OnHeavyInput += Execute2;
+        _playerInputHandler.OnLightInput += ExecuteAttack;
     }
 
-    private void Execute()
+    private void ExecuteAttack()
     {
-        _playerAnimator.PlayAttackAnimation(LightStart);
+        _playerCharacter.TryAttack(CurrentAttack);
     }
 
-    private void Execute2()
-    {
-        _playerAnimator.PlayAttackAnimation(HeavyStart);
-
-    }
     private void OnDisable()
     { 
-        _playerInputHandler.OnLightInput -= Execute;
-        _playerInputHandler.OnHeavyInput -= Execute2;
-
+        _playerInputHandler.OnLightInput -= ExecuteAttack;
     }
 }

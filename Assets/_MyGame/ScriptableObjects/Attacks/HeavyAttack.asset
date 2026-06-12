@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88253a1b922982740a5adebd05dce2c9, type: 3}
-  m_Name: Light2Attack
+  m_Name: HeavyAttack
   m_EditorClassIdentifier: Assembly-CSharp::AttackSO
-  AnimationClip: {fileID: 3094330708855449807, guid: 408142c06e2d48c4db8065d1fbbcc8eb, type: 3}
+  AnimationClip: {fileID: 7400000, guid: 587fe549fe974ed4dbcd0a9e7fbcb251, type: 2}
   TransitionDuration: 0.1
   Damage: 10
   ComboTransitions: []
