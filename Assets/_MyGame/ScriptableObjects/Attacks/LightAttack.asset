@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LightAttack
   m_EditorClassIdentifier: Assembly-CSharp::AttackSO
   AnimationClip: {fileID: 7400000, guid: c142f3d65ae29184e9cfc2fc3e30f10c, type: 2}
-  TransitionDuration: 0.1
+  TransitionDuration: 0.2
   Damage: 10
   ComboTransitions:
   - InputButton: {fileID: -35031751460895315, guid: 052faaac586de48259a63d0c4782560b, type: 3}

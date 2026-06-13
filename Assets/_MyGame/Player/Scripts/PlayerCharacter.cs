@@ -7,6 +7,7 @@ public class PlayerCharacter : Character
      private void Construct(StateMachine stateMachine)
      {
          _stateMachine = stateMachine;
+         
      }
     protected override void Initialize()
     {

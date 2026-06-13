@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: HeavyAttack
   m_EditorClassIdentifier: Assembly-CSharp::AttackSO
   AnimationClip: {fileID: 7400000, guid: 587fe549fe974ed4dbcd0a9e7fbcb251, type: 2}
-  TransitionDuration: 0.1
+  TransitionDuration: 0.2
   Damage: 10
   ComboTransitions: []

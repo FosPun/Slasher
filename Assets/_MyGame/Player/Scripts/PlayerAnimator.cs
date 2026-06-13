@@ -15,6 +15,7 @@ public class PlayerAnimator : MonoBehaviour
     [SerializeField] private string idleBoolName = "IsIdle";
     [SerializeField] private string jumpBoolName = "IsJump";
     [SerializeField] private string attackBoolName = "IsAttacking";
+    [SerializeField] private string dodgeBoolName = "IsDodging";
     [SerializeField] private string jumpTriggerName = "Jump";
     
     [SerializeField] private string attackStateName = "AttackState";
@@ -50,5 +51,6 @@ public class PlayerAnimator : MonoBehaviour
     public void SetIsJump(bool state) => _animator.SetBool(jumpBoolName, state);
     public void SetJumpTrigger() => _animator.SetTrigger(jumpTriggerName);
     public void SetIsAttacking(bool state) => _animator.SetBool(attackBoolName,state);
+    public void SetIsDodging(bool state) => _animator.SetBool(dodgeBoolName, state);
 
 }

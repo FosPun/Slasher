@@ -1281,6 +1281,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3375853285421016577, guid: fbb4f01207cd7db42b243549c8c30397, type: 3}
+      propertyPath: "\u0421rossFadeDuration"
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917890616262613003, guid: fbb4f01207cd7db42b243549c8c30397, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4677759253156127772, guid: fbb4f01207cd7db42b243549c8c30397, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6314857479054439709, guid: fbb4f01207cd7db42b243549c8c30397, type: 3}
+      propertyPath: CharacteristicsSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 3e8ffbe64f04d6747b6cbe093ca1cd43, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

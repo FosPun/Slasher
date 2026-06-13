@@ -21,7 +21,7 @@ public class PlayerInstaller : MonoInstaller
         Container.BindInstance(_playerMovement);
 
         //StateMachine
-        Container.Bind<StateMachine>().AsSingle();
+        Container.Bind<StateMachine>().AsCached();
 
         // States for StateMachine
         Container.Bind<IState>().To<IdleState>().AsSingle();
@@ -29,6 +29,7 @@ public class PlayerInstaller : MonoInstaller
         Container.Bind<IState>().To<FallingState>().AsSingle();
         Container.Bind<IState>().To<JumpingState>().AsSingle();
         Container.Bind<IState>().To<AttackState>().AsSingle();
+        Container.Bind<IState>().To<DodgeState>().AsSingle();
 
         Container.BindInstance(_playerCharacter);
     }

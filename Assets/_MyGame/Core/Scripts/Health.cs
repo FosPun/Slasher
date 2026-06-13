@@ -38,6 +38,10 @@ public class Health : MonoBehaviour
     {
         if(_isDead) return;
         ChangeCurrentHealthPoints(heal);
+        if (_currentHealthPoints >= maxHealthPoints)
+        {
+            _currentHealthPoints = maxHealthPoints;
+        }
         OnHealed?.Invoke();
     }
     private void Die()

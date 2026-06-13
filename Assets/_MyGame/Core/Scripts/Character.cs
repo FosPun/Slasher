@@ -1,13 +1,14 @@
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class Character: MonoBehaviour
 {
-    [SerializeField] private CharacteristicsSO _characteristicsSO;
-    public float MovementSpeed => _characteristicsSO.movementSpeed;
-    public float AttackSpeed => _characteristicsSO.attackSpeed;
-    public float Health => _characteristicsSO.health;
-    public float Damage => _characteristicsSO.damage;
+    public CharacteristicsSO CharacteristicsSO;
+    public float MovementSpeed => CharacteristicsSO.movementSpeed;
+    public float AttackSpeed => CharacteristicsSO.attackSpeed;
+    public float Health => CharacteristicsSO.health;
+    public float Damage => CharacteristicsSO.damage;
 
     protected abstract void Initialize();
     

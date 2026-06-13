@@ -17,16 +17,18 @@ public class PlayerMovement : MonoBehaviour
     
     private PlayerInputHandler _playerInputHandler;
     private CharacterController _characterController;
+    private StateMachine _stateMachine;
 
     private bool _isMoving = true;
     private bool _canMove = true;
     private Vector3 _velocity;
 
     [Inject]
-    private void Construct(PlayerInputHandler playerInputHandler, CharacterController characterController)
+    private void Construct(PlayerInputHandler playerInputHandler, CharacterController characterController, StateMachine stateMachine)
     {
         _playerInputHandler = playerInputHandler;
         _characterController = characterController;
+        _stateMachine = stateMachine;
     }
     private void Awake()
     {
@@ -77,8 +79,10 @@ public class PlayerMovement : MonoBehaviour
     }
     private void DodgeHandle()
     {
-        Vector3 dodgeDirection = new Vector3(_playerInputHandler.MovementInput.x, 0, _playerInputHandler.MovementInput.z);
-        _characterController.Move(dodgeDirection * dodgeDistance);
+        if (_characterController.isGrounded)
+        {
+            _stateMachine.ChangeState<DodgeState>();
+        }
     }
 
     private void JumpHandler()
@@ -90,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
     
     private void MovementHandler()
     {
-            if(!_isMoving && _playerInputHandler.MovementInput.sqrMagnitude < 0 || !_canMove) return;
+            if(!_isMoving && _playerInputHandler.MovementInput.sqrMagnitude <= 0.01f || !_canMove) return;
             _velocity.x =  _playerInputHandler.MovementInput.x * speed;
             _velocity.z =  _playerInputHandler.MovementInput.z * speed;
     }
