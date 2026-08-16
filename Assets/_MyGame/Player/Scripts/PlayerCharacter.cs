@@ -1,30 +1,42 @@
+using System;
+using _MyGame.Player.Scripts;
+using _MyGame.Player.Scripts.StateMachine;
+using UnityEngine;
 using Zenject;
 
 public class PlayerCharacter : Character
 {
-     private StateMachine _stateMachine;
-     [Inject]
-     private void Construct(StateMachine stateMachine)
-     {
-         _stateMachine = stateMachine;
-         
-     }
+    public StateMachine StateMachine => _stateMachine;
+    private StateMachine _stateMachine;
+    private PlayerAnimator _animator;
+    private Combat _combat;
+    private CharacterController _controller;
+     
+    [Inject]
+    private void Construct(StateMachine stateMachine, PlayerAnimator animator, Combat combat, CharacterController controller)
+    {
+        _stateMachine = stateMachine;
+        _animator = animator;
+        _combat = combat;
+        _controller = controller;
+    }
+
+    
+
     protected override void Initialize()
     {
         _stateMachine.Initialize<IdleState>();
     }
-    private void Update()
+     
+    private void Update() 
     {
-        _stateMachine.Execute();
+        _stateMachine.Execute(); 
     }
 
-    public void TryAttack(AttackSO attackData)
+    public void Attack(string name)
     {
-        if(_stateMachine.CurrentState is AttackState) return;
-        if (_stateMachine.GetState<AttackState>() is AttackState attackState)
-        {
-            attackState.SetInitialAttack(attackData);
-            _stateMachine.ChangeState<AttackState>();
-        }
+        _stateMachine.ChangeState<AttackState>();
+        _animator.CrossFadeAttack(name);
     }
+    
 }

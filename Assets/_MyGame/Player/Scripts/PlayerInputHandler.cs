@@ -2,69 +2,72 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInputHandler : MonoBehaviour
+namespace _MyGame.Player.Scripts
 {
-    public Action OnDodgeInput;
-    public Action OnJumpInput;
-    public Action OnLightInput;
-    public Action OnHeavyInput;
+    public class PlayerInputHandler : MonoBehaviour
+    {
+        public Action OnDodgeInput;
+        public Action OnJumpInput;
+        public Action<AttackInput> OnLightInput;
+        public Action<AttackInput> OnHeavyInput;
 
-    public Vector3 MovementInput { get; private set;}
+        public Vector3 MovementInput { get; private set;}
     
-    [Header("Input Actions References")]
-    [SerializeField] private InputActionReference moveActionReference;
-    [SerializeField] private InputActionReference dodgeActionReference;
-    [SerializeField] private InputActionReference jumpActionReference;
-    [SerializeField] private InputActionReference lightActionReference;
-    [SerializeField] private InputActionReference heavyActionReference;
+        [Header("Input Actions References")]
+        [SerializeField] private InputActionReference moveActionReference;
+        [SerializeField] private InputActionReference dodgeActionReference;
+        [SerializeField] private InputActionReference jumpActionReference;
+        [SerializeField] private InputActionReference lightActionReference;
+        [SerializeField] private InputActionReference heavyActionReference;
 
-    private void OnEnable()
-    {
-        moveActionReference.action.Enable();
-        dodgeActionReference.action.Enable();
-        jumpActionReference.action.Enable();
-        lightActionReference.action.Enable();
-        heavyActionReference.action.Enable();
-    }
-
-    private void OnDisable()
-    {
-        moveActionReference.action.Disable();
-        dodgeActionReference.action.Disable();
-        jumpActionReference.action.Disable();
-        lightActionReference.action.Disable();
-        heavyActionReference.action.Disable();
-    }
-
-    private void Update()
-    {
-        ReadInput();
-    }
-    private void ReadInput()
-    {
-        MovementInput = new Vector3
-        (
-            moveActionReference.action.ReadValue<Vector2>().x,
-            0,
-            moveActionReference.action.ReadValue<Vector2>().y 
-        );
-        if(dodgeActionReference.action.WasPressedThisFrame())
+        private void OnEnable()
         {
-            OnDodgeInput?.Invoke();
+            moveActionReference.action.Enable();
+            dodgeActionReference.action.Enable();
+            jumpActionReference.action.Enable();
+            lightActionReference.action.Enable();
+            heavyActionReference.action.Enable();
         }
 
-        if (jumpActionReference.action.WasPressedThisFrame())
+        private void OnDisable()
         {
-            OnJumpInput?.Invoke();
+            moveActionReference.action.Disable();
+            dodgeActionReference.action.Disable();
+            jumpActionReference.action.Disable();
+            lightActionReference.action.Disable();
+            heavyActionReference.action.Disable();
         }
 
-        if (lightActionReference.action.WasPressedThisFrame())
+        private void Update()
         {
-            OnLightInput?.Invoke();
+            ReadInput();
         }
-        if (heavyActionReference.action.WasPressedThisFrame())
+        private void ReadInput()
         {
-            OnHeavyInput?.Invoke();
+            MovementInput = new Vector3
+            (
+                moveActionReference.action.ReadValue<Vector2>().x,
+                0,
+                moveActionReference.action.ReadValue<Vector2>().y 
+            );
+            if(dodgeActionReference.action.WasPressedThisFrame())
+            {
+                OnDodgeInput?.Invoke();
+            }
+
+            if (jumpActionReference.action.WasPressedThisFrame())
+            {
+                OnJumpInput?.Invoke();
+            }
+
+            if (lightActionReference.action.WasPressedThisFrame())
+            {
+                OnLightInput?.Invoke(AttackInput.Light);
+            }
+            if (heavyActionReference.action.WasPressedThisFrame())
+            {
+                OnHeavyInput?.Invoke(AttackInput.Heavy);
+            }
         }
     }
 }

@@ -1,28 +1,29 @@
 
-using UnityEngine;
-
-public class MovingState : OnGroundState
+namespace _MyGame.Player.Scripts.StateMachine
 {
+    public class MovingState : OnGroundState
+    {
     
-    public override void Enter()
-    {
-        base.Enter();
-        _animator.SetIsMoving(true);
-        
-    }
-
-    public override void Execute()
-    {
-        base.Execute();
-        if (_input.MovementInput.sqrMagnitude <= 0.01f)
+        public override void Enter()
         {
-            _stateMachine.ChangeState<IdleState>();
+            base.Enter();
+            Animator.SetIsMoving(true);
+        
         }
-    }
 
-    public override void Exit()
-    {
-        base.Exit();
-        _animator.SetIsMoving(false);
+        public override void Execute()
+        {
+            base.Execute();
+            if (Input.MovementInput.sqrMagnitude <= 0.01f)
+            {
+                StateMachine.ChangeState<IdleState>();
+            }
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            Animator.SetIsMoving(false);
+        }
     }
 }

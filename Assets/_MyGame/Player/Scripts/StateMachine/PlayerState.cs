@@ -1,34 +1,45 @@
-
+using _MyGame.Player.Scripts;
 using UnityEngine;
 using Zenject;
-
-public abstract class PlayerState : IState
-{
-    protected  PlayerAnimator _animator;
-    protected  PlayerInputHandler _input;
-    protected  StateMachine _stateMachine;
-    protected  PlayerMovement _movement;
-    protected  CharacterController _characterController;
-    protected  PlayerCharacter _playerCharacter;
-    
-    [Inject]
-    protected void Construct(PlayerAnimator animator, PlayerInputHandler input, StateMachine stateMachine, PlayerMovement character, CharacterController characterController, PlayerCharacter playerCharacter)
+    public abstract class PlayerState : IState
     {
-        _animator = animator;
-        _input = input;
-        _stateMachine = stateMachine;
-        _movement = character;
-        _characterController = characterController;
-        _playerCharacter = playerCharacter;
-    }
-
-    public virtual void Enter()
-    {
-        Debug.Log(_stateMachine.CurrentState);
-    }
-
-    public abstract void Execute();
-
-    public abstract void Exit();
+        protected  PlayerAnimator Animator;
+        protected  PlayerInputHandler Input;
+        protected  StateMachine StateMachine;
+        protected  PlayerMovement Movement;
+        protected  CharacterController CharacterController;
+        protected  PlayerCharacter PlayerCharacter;
+        protected  Combat Combat;
+        
     
-}
+        [Inject]
+        protected void Construct
+        (
+            PlayerAnimator animator, 
+            PlayerInputHandler input, 
+            StateMachine stateMachine, 
+            PlayerMovement character, 
+            CharacterController characterController, 
+            PlayerCharacter playerCharacter, 
+            Combat combat
+        )
+        {
+            Animator = animator;
+            Input = input;
+            StateMachine = stateMachine;
+            Movement = character;
+            CharacterController = characterController;
+            PlayerCharacter = playerCharacter;
+            Combat = combat;
+        }
+
+        public virtual void Enter()
+        {
+            Debug.Log(StateMachine.CurrentState);
+        }
+
+        public abstract void Execute();
+
+        public abstract void Exit();
+    
+    }

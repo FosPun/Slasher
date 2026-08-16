@@ -1,17 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 
 [CreateAssetMenu(fileName = "AttackSO", menuName = "Scriptable Objects/AttackSO")]
 public class AttackSO : ScriptableObject
 {
-    [Header("Animation")]
-    public AnimationClip AnimationClip;
-    public float TransitionDuration = 0.1f;
+    public AttackInput attackInput;
+    public string animationLabel;
+    public int cost;
+    [Header("Combat Stats")] 
+    public int damage = 10;
+    public float positionOffset;
+    public float radius = 1f;
 
-    [Header("Combat Stats")]
-    public float Damage = 10f;
-    
-    [Header("Combo Tree")]
-    public List<ComboTransition> ComboTransitions;
+    public List<EffectSO> effects;
+    [Header("Transitions")]
+    public List<AttackSO> transitions;
 }

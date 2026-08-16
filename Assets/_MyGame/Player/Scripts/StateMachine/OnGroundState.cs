@@ -1,33 +1,42 @@
-
-using UnityEngine;
-using Zenject;
-
-public abstract class OnGroundState : PlayerState
+namespace _MyGame.Player.Scripts.StateMachine
 {
+    public abstract class OnGroundState : PlayerState
+    {
     
-    public override void Enter()
-    {
-        base.Enter();
-        _animator.SetOnGroundBool(true);
-        _movement.OnJump += ChangeToJumpState;
-    }
-
-    public override void Execute()
-    {
-        if (!_characterController.isGrounded)
+        public override void Enter()
         {
-            _stateMachine.ChangeState<FallingState>();
+            base.Enter();
+            Animator.SetOnGroundBool(true);
+            Movement.OnJump += ChangeToJumpState;
+            Input.OnDodgeInput += ChangeToDodge;
         }
-    }
 
-    private void ChangeToJumpState()
-    {
-        _stateMachine.ChangeState<JumpingState>();
-    }
-    public override void Exit()
-    {
-        _animator.SetOnGroundBool(false);
-        _movement.OnJump -= ChangeToJumpState;
+        public override void Execute()
+        {
+            if (!CharacterController.isGrounded)
+            {
+                StateMachine.ChangeState<FallingState>();
+            }
+        }
+
+        private void ChangeToDodge()
+        {
+            if (CharacterController.isGrounded)
+            {
+                StateMachine.ChangeState<DodgeState>();
+            }
+        }
+
+        private void ChangeToJumpState()
+        {
+            StateMachine.ChangeState<JumpingState>();
+        }
+        public override void Exit()
+        {
+            Animator.SetOnGroundBool(false);
+            Movement.OnJump -= ChangeToJumpState;
+            Input.OnDodgeInput -= ChangeToDodge;
+        }
     }
 }
 

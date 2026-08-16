@@ -1,26 +1,29 @@
 
-public class JumpingState : InAirState
+namespace _MyGame.Player.Scripts.StateMachine
 {
-   public override void Enter()
+   public class JumpingState : InAirState
    {
-      base.Enter();
-      _animator.SetJumpTrigger();
-      _animator.SetIsJump(true);
-         
-   }
-
-   public override void Execute()
-   {
-      base.Execute();
-      if (_movement.Velocity.y <= 0)
+      public override void Enter()
       {
-         _stateMachine.ChangeState<FallingState>();
+         base.Enter();
+         Animator.SetJumpTrigger();
+         Animator.SetIsJump(true);
+         
       }
-   }
 
-   public override void Exit()
-   {
-      base.Exit();
-      _animator.SetIsJump(false);
+      public override void Execute()
+      {
+         base.Execute();
+         if (Movement.Velocity.y <= 0)
+         {
+            StateMachine.ChangeState<FallingState>();
+         }
+      }
+
+      public override void Exit()
+      {
+         base.Exit();
+         Animator.SetIsJump(false);
+      }
    }
 }

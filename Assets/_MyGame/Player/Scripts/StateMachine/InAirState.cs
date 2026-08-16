@@ -1,29 +1,29 @@
-using UnityEngine;
-using Zenject;
-
-public abstract class InAirState : PlayerState
+namespace _MyGame.Player.Scripts.StateMachine
 {
+    public abstract class InAirState : PlayerState
+    {
     
-    public override void Enter()
-    {
-        base.Enter();
-        _animator.SetInAir(true);
-    }
-
-    public override void Execute()
-    {
-        if (_characterController.isGrounded && _input.MovementInput.sqrMagnitude > 0)
+        public override void Enter()
         {
-            _stateMachine.ChangeState<MovingState>();
+            base.Enter();
+            Animator.SetInAir(true);
         }
-        else if (_characterController.isGrounded)
-        {
-            _stateMachine.ChangeState<IdleState>();
-        }
-    }
 
-    public override void Exit()
-    {
-        _animator.SetInAir(false);
+        public override void Execute()
+        {
+            if (CharacterController.isGrounded && Input.MovementInput.sqrMagnitude > 0)
+            {
+                StateMachine.ChangeState<MovingState>();
+            }
+            else if (CharacterController.isGrounded)
+            {
+                StateMachine.ChangeState<IdleState>();
+            }
+        }
+
+        public override void Exit()
+        {
+            Animator.SetInAir(false);
+        }
     }
 }
