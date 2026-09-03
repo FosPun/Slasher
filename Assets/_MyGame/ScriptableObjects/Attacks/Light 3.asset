@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Light 3
   m_EditorClassIdentifier: Assembly-CSharp::AttackSO
   attackInput: 1
+  iconSprite: {fileID: 0}
   animationLabel: Attack2H03
-  positionOffset: 1
+  cost: 10
   damage: 10
+  positionOffset: 1
   radius: 1
   effects:
   - {fileID: 11400000, guid: 5b9cfcece104fcf4dbb75bf3d51dbbb9, type: 2}

@@ -2,8 +2,6 @@ using System;
 using UnityEngine;
 using Zenject;
 
-namespace _MyGame.Player.Scripts
-{
     public class PlayerMovement : MonoBehaviour
     {
         public Action OnJump;
@@ -107,4 +105,4 @@ namespace _MyGame.Player.Scripts
             _canMove = b;
         }
     }
-}
+

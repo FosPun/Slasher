@@ -1,5 +1,4 @@
-namespace _MyGame.Player.Scripts.StateMachine
-{
+
     public class IdleState : OnGroundState
     {
     
@@ -24,4 +23,4 @@ namespace _MyGame.Player.Scripts.StateMachine
             Animator.SetIsIdle(false);
         }
     }
-}
+

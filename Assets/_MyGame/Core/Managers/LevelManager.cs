@@ -8,12 +8,14 @@ public class LevelManager : MonoBehaviour
 {
 
     public Action OnRoundFinished;
+    public Action<float> OnTimerChanged;
     [SerializeField] private float roundTime;
 
     public float CurrentRoundTime => _currentRoundTime;
     private float _currentRoundTime;
     private EnemySpawner _enemySpawner;
     private List<GameObject> _enemies;
+    [SerializeField] private WaveSO _wave;
     
     [Inject]
     private void Construct(EnemySpawner enemySpawner)
@@ -23,7 +25,16 @@ public class LevelManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        DecreaseTimer();
+    }
+
+    private void DecreaseTimer()
+    {
+        if(_currentRoundTime <= 0) return;
         _currentRoundTime -= Time.fixedDeltaTime;
+        
+        OnTimerChanged?.Invoke(_currentRoundTime);
+        
         if (_currentRoundTime <= 0)
         {
             OnRoundFinished?.Invoke();
@@ -42,13 +53,13 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        StartRound(roundTime, Random.Range(1, 10));
+        StartRound(roundTime, _wave.AmountOfEnemiesToSpawn, _wave.EnemiesDataToSpawn);
     }
 
-    private void StartRound(float roundTime, int enemiesAmount)
+    private void StartRound(float roundTime, int enemiesAmount, EnemySO[] enemies)
     {
         _currentRoundTime = roundTime;
-        _enemySpawner.SpawnRandomEnemies(enemiesAmount);
+        _enemySpawner.SpawnRandomEnemies(enemiesAmount, enemies);
     }
 
     private void FinishRound()

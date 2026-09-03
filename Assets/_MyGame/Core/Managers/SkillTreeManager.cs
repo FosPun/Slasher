@@ -5,27 +5,27 @@ using Zenject;
 public class SkillTreeManager : MonoBehaviour
 {
     private SkillPointsManager _skillPointsManager;
-    private PlayerDataSO _playerData;
-
+    public  AttackSO baseLightAttack;
+    public  AttackSO baseHeavyAttack;
     [Inject]
-    public void Construct(SkillPointsManager skillPointsManager, PlayerDataSO playerData)
+    public void Construct(SkillPointsManager skillPointsManager)
     {
         _skillPointsManager = skillPointsManager;
-        _playerData = playerData;
     }
 
-    private void Start()
+    private void Awake()
     {
-        UnlockAttack(_playerData.baseLightAttack);
-        UnlockAttack(_playerData.baseHeavyAttack);
+        UnlockAttack(baseLightAttack);
+        UnlockAttack(baseHeavyAttack);
        
     }
 
+
     public void UnlockAttack(AttackSO attackSo)
     {
-        if (_skillPointsManager.SkillPoints >= attackSo.cost)
-        {
-            _playerData.UnlockedAttacks.Add(attackSo);
-        }
+        if (_skillPointsManager.SkillPoints < attackSo.cost) return;
+        
+        _skillPointsManager.ChangePoints(-attackSo.cost);
+        ConfigDynamic.UnlockedAttacks.Add(attackSo);
     }
 }

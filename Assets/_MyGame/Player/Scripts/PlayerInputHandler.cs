@@ -2,8 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace _MyGame.Player.Scripts
-{
     public class PlayerInputHandler : MonoBehaviour
     {
         public Action OnDodgeInput;
@@ -70,4 +68,4 @@ namespace _MyGame.Player.Scripts
             }
         }
     }
-}
+

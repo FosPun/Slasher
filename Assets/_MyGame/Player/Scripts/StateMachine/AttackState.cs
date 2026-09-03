@@ -1,12 +1,9 @@
-
-namespace _MyGame.Player.Scripts.StateMachine
-{
-    public class AttackState : PlayerState
+public class AttackState : PlayerState
     {
         public override void Enter()
         {
             base.Enter();
-            Combat.OnAttackFinish += StopAttacking;
+            Combat.OnAttackFinished += StopAttacking;
             Movement.MovementSwitch(false);
             Animator.SetIsAttacking(true);
             
@@ -18,9 +15,9 @@ namespace _MyGame.Player.Scripts.StateMachine
         public override void Exit()
         {
             Movement.MovementSwitch(true); 
-            Animator.SetComboFinsihedTrigger();
+            Animator.SetComboFinishedTrigger();
             Animator.SetIsAttacking(false);
-            Combat.OnAttackFinish -= StopAttacking;
+            Combat.OnAttackFinished -= StopAttacking;
         }
         private void StopAttacking()
         {
@@ -35,4 +32,3 @@ namespace _MyGame.Player.Scripts.StateMachine
         }
         
     }
-}

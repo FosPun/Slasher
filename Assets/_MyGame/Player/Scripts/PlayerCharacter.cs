@@ -1,42 +1,67 @@
-using System;
-using _MyGame.Player.Scripts;
-using _MyGame.Player.Scripts.StateMachine;
 using UnityEngine;
 using Zenject;
 
 public class PlayerCharacter : Character
 {
-    public StateMachine StateMachine => _stateMachine;
+    [SerializeField] private AttackSO baseLightAttack;
+    [SerializeField] private AttackSO baseHeavyAttack;
+
+    private PlayerInputHandler _playerInputHandler;
+    private PlayerCombo _playerCombo;
+
     private StateMachine _stateMachine;
-    private PlayerAnimator _animator;
-    private Combat _combat;
-    private CharacterController _controller;
-     
+
     [Inject]
-    private void Construct(StateMachine stateMachine, PlayerAnimator animator, Combat combat, CharacterController controller)
+    private void Construct(
+        PlayerInputHandler playerInputHandler,
+        StateMachine stateMachine,
+        PlayerAnimator animator,
+        PlayerCombo playerCombo
+    )
     {
         _stateMachine = stateMachine;
-        _animator = animator;
-        _combat = combat;
-        _controller = controller;
+        _playerInputHandler = playerInputHandler;
+        _playerCombo = playerCombo;
     }
 
-    
+    private void Start()
+    {
+        
+    }
+    private void OnEnable()
+    {
+        _playerInputHandler.OnLightInput += HandleLightAttack;
+        _playerInputHandler.OnHeavyInput += HandleHeavyAttack;
+    }
+
+    private void OnDisable()
+    {
+        _playerInputHandler.OnLightInput -= HandleLightAttack;
+        _playerInputHandler.OnHeavyInput -= HandleHeavyAttack;
+    }
 
     protected override void Initialize()
     {
         _stateMachine.Initialize<IdleState>();
     }
-     
-    private void Update() 
+
+    private void Update()
     {
-        _stateMachine.Execute(); 
+        _stateMachine.Execute(); // Возвращаем работу StateMachine!
     }
 
-    public void Attack(string name)
+    private void HandleLightAttack(AttackInput input)
     {
-        _stateMachine.ChangeState<AttackState>();
-        _animator.CrossFadeAttack(name);
+        TryAttack(input, baseLightAttack);
     }
-    
+
+    private void HandleHeavyAttack(AttackInput input)
+    {
+        TryAttack(input, baseHeavyAttack);
+    }
+
+    private void TryAttack(AttackInput input, AttackSO baseAttack)
+    {
+        if (_playerCombo.TryProcessAttackInput(input, baseAttack)) _stateMachine.ChangeState<AttackState>();
+    }
 }

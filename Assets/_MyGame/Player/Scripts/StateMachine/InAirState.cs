@@ -1,5 +1,4 @@
-namespace _MyGame.Player.Scripts.StateMachine
-{
+
     public abstract class InAirState : PlayerState
     {
     
@@ -26,4 +25,4 @@ namespace _MyGame.Player.Scripts.StateMachine
             Animator.SetInAir(false);
         }
     }
-}
+

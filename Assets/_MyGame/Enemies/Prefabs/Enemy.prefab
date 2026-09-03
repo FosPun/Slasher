@@ -242,6 +242,12 @@ MonoBehaviour:
   groundChecker: {fileID: 2241889232522640087}
   agent: {fileID: 4404004496793918871}
   animator: {fileID: 4260033870774229481}
+  character: {fileID: 2608395173478912867}
+  characteristics: {fileID: 11400000, guid: 3e8ffbe64f04d6747b6cbe093ca1cd43, type: 2}
+  combatAnimator: {fileID: 3354083986346238006}
+  baseAttackSo: {fileID: 11400000, guid: 9a44843036d698c4e9e758a2948a4223, type: 2}
+  combat: {fileID: 7771976857312902667}
+  statusEffectController: {fileID: 6518943157989105962}
 --- !u!1 &887232858088086400
 GameObject:
   m_ObjectHideFlags: 0
@@ -606,9 +612,9 @@ GameObject:
   - component: {fileID: 6171865030598564247}
   - component: {fileID: 2608395173478912867}
   - component: {fileID: 2241889232522640087}
-  - component: {fileID: 8782601402924587799}
-  - component: {fileID: 3637608890360491293}
   - component: {fileID: 855637722672719431}
+  - component: {fileID: 7771976857312902667}
+  - component: {fileID: 6518943157989105962}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
@@ -631,6 +637,7 @@ Transform:
   m_Children:
   - {fileID: 178264336690365569}
   - {fileID: 8748909645564873118}
+  - {fileID: 8115422505834082832}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &8438149035071465622
@@ -715,27 +722,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Behavior::Unity.Behavior.BehaviorGraphAgent
-  m_Graph: {fileID: 793829273670240512, guid: c5c430adb60f67641ba8a0e8efc1d6f9, type: 2}
+  m_Graph: {fileID: 9227627711299102, guid: c5c430adb60f67641ba8a0e8efc1d6f9, type: 2}
   m_BlackboardVariableOverridesList:
   - rid: 7467499830803431707
-  - rid: 7467499871362351521
-  - rid: 7467499871665652589
-  - rid: 7467499871665652590
-  - rid: 3912937658055393548
   m_OriginalGraph: {fileID: 0}
   m_IsInitialised: 0
   m_IsStarted: 0
   references:
     version: 2
     RefIds:
-    - rid: 3912937658055393548
-      type: {class: 'BlackboardVariable`1[[System.Boolean, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 13085597733867693559
-          m_Value1: 3257127135663585057
-        Name: IsGrounded
-        m_Value: 1
     - rid: 7467499830803431707
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
@@ -744,30 +739,6 @@ MonoBehaviour:
           m_Value1: 0
         Name: Self
         m_Value: {fileID: 1971882076149117584}
-    - rid: 7467499871362351521
-      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 2578921722297200311
-          m_Value1: 15022724879321288587
-        Name: distanceToFollow
-        m_Value: 10
-    - rid: 7467499871665652589
-      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 3094766575386127722
-          m_Value1: 264854452837674172
-        Name: speed
-        m_Value: 3
-    - rid: 7467499871665652590
-      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 5752310813256374191
-          m_Value1: 10920339627382061396
-        Name: distanceToAttack
-        m_Value: 1.5
 --- !u!114 &6171865030598564247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -798,7 +769,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67624d9c74e8d2e44b6113f869fe233a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCharacter
-  CharacteristicsSO: {fileID: 11400000, guid: 3e8ffbe64f04d6747b6cbe093ca1cd43, type: 2}
   rewardOnDeath: 5
 --- !u!114 &2241889232522640087
 MonoBehaviour:
@@ -816,30 +786,6 @@ MonoBehaviour:
   _groundMask:
     serializedVersion: 2
     m_Bits: 512
---- !u!114 &8782601402924587799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1971882076149117584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d256429021ccd904fb47920db97edbae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::KnockbackHandler
---- !u!114 &3637608890360491293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1971882076149117584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aebbee42ea24754486d65293ac9a8cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::KnockupHandler
 --- !u!114 &855637722672719431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -852,7 +798,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32837bc7e4903054baf8bc8bcf0be459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHealthPoints: 10
+--- !u!114 &7771976857312902667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971882076149117584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 791826b271232f24586513752d33af54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_MyGame.Player.Scripts.Combat
+  _layerMaskToHit:
+    serializedVersion: 2
+    m_Bits: 64
+  _attackOrigin: {fileID: 8115422505834082832}
+--- !u!114 &6518943157989105962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971882076149117584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01988114370a9b040b5874cb00c2bd20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatusEffectController
 --- !u!1 &2004564602541239700
 GameObject:
   m_ObjectHideFlags: 0
@@ -2338,6 +2311,7 @@ GameObject:
   m_Component:
   - component: {fileID: 178264336690365569}
   - component: {fileID: 4260033870774229481}
+  - component: {fileID: 3354083986346238006}
   m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
@@ -2384,6 +2358,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3354083986346238006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6553920153871489612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85f9ff58ab9503d45a2009babbd0e972, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatAnimator
 --- !u!1 &6565318355844664240
 GameObject:
   m_ObjectHideFlags: 0
@@ -2478,6 +2464,37 @@ Transform:
   m_Children:
   - {fileID: 2437124055407940292}
   m_Father: {fileID: 611216751996393350}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6790419497836266336
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8115422505834082832}
+  m_Layer: 7
+  m_Name: HitPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8115422505834082832
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6790419497836266336}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 6.6666665}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6274459682735305773}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6905513691319166172
 GameObject:

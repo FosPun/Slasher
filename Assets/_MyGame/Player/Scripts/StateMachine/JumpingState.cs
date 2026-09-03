@@ -1,6 +1,4 @@
 
-namespace _MyGame.Player.Scripts.StateMachine
-{
    public class JumpingState : InAirState
    {
       public override void Enter()
@@ -26,4 +24,4 @@ namespace _MyGame.Player.Scripts.StateMachine
          Animator.SetIsJump(false);
       }
    }
-}
+

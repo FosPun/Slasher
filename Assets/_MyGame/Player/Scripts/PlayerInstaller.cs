@@ -1,20 +1,18 @@
-using _MyGame.Player.Scripts.StateMachine;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
-
-namespace _MyGame.Player.Scripts
-{
     public class PlayerInstaller : MonoInstaller
     {
-        [SerializeField] private PlayerCharacter playerCharacter;
-    
+        [SerializeField] private Character playerCharacter;
+        [SerializeField] private CharacteristicsSO characteristics;
         [SerializeField] private PlayerAnimator playerAnimator;
         [SerializeField] private CharacterController characterController;
         [SerializeField] private PlayerInputHandler playerInputHandler;
         [SerializeField] private PlayerMovement playerMovement;
         [SerializeField] private Animator animator;
+        [SerializeField] private Health health;
         [SerializeField] private Combat combat;
+        [SerializeField] private PlayerCombo playerCombo;
+        [SerializeField] private CombatAnimator combatAnimator;
 
         public override void InstallBindings()
         {
@@ -25,9 +23,14 @@ namespace _MyGame.Player.Scripts
             Container.BindInstance(playerInputHandler);
             Container.BindInstance(playerMovement);
             Container.BindInstance(combat);
+            Container.BindInstance(characteristics);
+            Container.BindInstance(health);
+            Container.BindInstance(playerCharacter);
+            Container.BindInstance(combatAnimator);
+            Container.BindInstance(playerCombo);
 
             //StateMachine
-            Container.Bind<global::StateMachine>().AsCached();
+            Container.Bind<StateMachine>().AsCached();
 
             // States for StateMachine
             Container.Bind<IState>().To<IdleState>().AsSingle();
@@ -39,4 +42,4 @@ namespace _MyGame.Player.Scripts
 
         }
     }
-}
+

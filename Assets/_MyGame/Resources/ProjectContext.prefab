@@ -109,6 +109,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ca7ea9f80893b547a17271acd6ed17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillTreeManager
+  baseLightAttack: {fileID: 11400000, guid: af87bb9abbb8d384ba16e3c638279a58, type: 2}
+  baseHeavyAttack: {fileID: 11400000, guid: 9a44843036d698c4e9e758a2948a4223, type: 2}
 --- !u!1 &3935397980097315798
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +202,6 @@ MonoBehaviour:
   _gameManager: {fileID: 6211186188887386596}
   _skillPointsManager: {fileID: 4086936736604285559}
   _skillTreeManager: {fileID: 230952776333431016}
-  _playerData: {fileID: 11400000, guid: ed25c9c4648bcfb438a74683abdca8eb, type: 2}
 --- !u!1 &5105508029545040836
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
-namespace _MyGame.Player.Scripts.StateMachine
-{
+
     public class FallingState : InAirState
     {
     
@@ -18,4 +17,4 @@ namespace _MyGame.Player.Scripts.StateMachine
             base.Exit();
         }
     }
-}
+

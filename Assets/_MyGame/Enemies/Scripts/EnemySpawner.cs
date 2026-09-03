@@ -6,7 +6,6 @@ using Random = UnityEngine.Random;
 public class EnemySpawner : MonoBehaviour
 {
     private IInstantiator _instantiator;
-    [SerializeField] private EnemySO[] _enemies;
     [SerializeField] private Collider _collider;
 
     [Inject]
@@ -15,11 +14,11 @@ public class EnemySpawner : MonoBehaviour
         _instantiator = instantiator;
     }
 
-    public void SpawnRandomEnemies(int amountEnemies)
+    public void SpawnRandomEnemies(int amountEnemies , EnemySO[] enemiesData)
     {
         for (int i = 0; i < amountEnemies; i++)
         {
-            SpawnEnemy(_enemies[Random.Range(0, _enemies.Length)].prefab);
+            SpawnEnemy(enemiesData[Random.Range(0, enemiesData.Length)].prefab);
         }
     }
     private void SpawnEnemy(GameObject enemy)

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CoinManager : MonoBehaviour
 {
-    public Action OnCoinsChanged;
+    public Action<int> OnCoinsChanged;
     public int Coins => _coins;
     
     private int _coins = 0;
@@ -11,18 +11,18 @@ public class CoinManager : MonoBehaviour
 
     private void OnEnable()
     {
-        EnemyCharacter.OnEnemyDeath += AddCoins;
+        EventBus.Subscribe<CoinsChangeEvent>(ChangeCoins);
     }
 
     private void OnDisable()
     {
-        EnemyCharacter.OnEnemyDeath -= AddCoins;
+        EventBus.Unsubscribe<CoinsChangeEvent>(ChangeCoins);
     }
 
-    public void AddCoins(int amount)
+    private void ChangeCoins(CoinsChangeEvent obj)
     {
-        _coins += amount;
-        Debug.Log("Coins: " + _coins);
+        _coins += obj.Coins;
+        OnCoinsChanged?.Invoke(_coins);
     }
 }
 

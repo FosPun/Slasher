@@ -7,18 +7,17 @@ public class Health : MonoBehaviour
     public Action OnDamageTaken;
     public Action OnHealed;
     public Action OnDeath;
-
+    
+    public int MaxHealth => _maxHealth;
     public int CurrentHealth => _currentHealthPoints;
     public bool IsDead => _currentHealthPoints <= 0;
-     
-    [SerializeField] private int maxHealthPoints;
     
+    private int  _maxHealth;
     private int _currentHealthPoints;
     private bool _isDead = false;
-
+    
     private void Awake()
     {
-        _currentHealthPoints = maxHealthPoints;
         OnHealthChanged?.Invoke();
     }
 
@@ -36,12 +35,9 @@ public class Health : MonoBehaviour
 
     public void Heal(int heal)
     {
-        if(_isDead) return;
-        ChangeCurrentHealthPoints(heal);
-        if (_currentHealthPoints >= maxHealthPoints)
-        {
-            _currentHealthPoints = maxHealthPoints;
-        }
+        if (_isDead || heal <= 0) return;
+        _currentHealthPoints = Mathf.Min(_currentHealthPoints + heal, _maxHealth);
+        OnHealthChanged?.Invoke();
         OnHealed?.Invoke();
     }
     private void Die()
@@ -50,7 +46,11 @@ public class Health : MonoBehaviour
         OnDeath?.Invoke();
     }
 
-    private void ChangeCurrentHealthPoints(int amount)
+    public void SetMaxHealth(int maxHealth)
+    {
+        _maxHealth = maxHealth;
+    }
+    public void ChangeCurrentHealthPoints(int amount)
     {
         _currentHealthPoints += amount;
         OnHealthChanged?.Invoke();

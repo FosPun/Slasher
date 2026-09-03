@@ -2,8 +2,6 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace _MyGame.Player.Scripts.StateMachine
-{
     public class DodgeState : PlayerState
     {
         private float _dodgeDuration;
@@ -19,9 +17,9 @@ namespace _MyGame.Player.Scripts.StateMachine
         {
             base.Enter();
         
-            _dodgeDuration = PlayerCharacter.CharacteristicsSO.dodgeDuration;
-            _dodgeDistance = PlayerCharacter.CharacteristicsSO.dodgeDistance; 
-            _dodgeCurve = PlayerCharacter.CharacteristicsSO.dodgeCurve;      
+            _dodgeDuration = PlayerCharacter.CharacteristicsSo.dodgeDuration;
+            _dodgeDistance = PlayerCharacter.CharacteristicsSo.dodgeDistance; 
+            _dodgeCurve = PlayerCharacter.CharacteristicsSo.dodgeCurve;      
         
             Animator.SetIsDodging(true);
         
@@ -86,4 +84,3 @@ namespace _MyGame.Player.Scripts.StateMachine
             Animator.SetIsDodging(false);
         }
     }
-}

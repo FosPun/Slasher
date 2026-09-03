@@ -5,5 +5,6 @@ using UnityEngine.Serialization;
 [CreateAssetMenu(fileName = "WaveSO", menuName = "Scriptable Objects/WaveSO")]
 public class WaveSO : ScriptableObject
 {
-    public List<GameObject> EnemiesPrefabsToSpawn;
+    public EnemySO[] EnemiesDataToSpawn;
+    public int AmountOfEnemiesToSpawn;
 }

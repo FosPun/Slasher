@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Heavy 2
   m_EditorClassIdentifier: Assembly-CSharp::AttackSO
   attackInput: 2
+  iconSprite: {fileID: 0}
   animationLabel: Attack1H05_R
-  positionOffset: 1
+  cost: 10
   damage: 10
+  positionOffset: 1
   radius: 1
   effects:
   - {fileID: 11400000, guid: 6c460aa4e4a451c4bbd4e86886f4aecd, type: 2}

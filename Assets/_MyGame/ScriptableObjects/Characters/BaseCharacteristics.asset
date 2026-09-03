@@ -40,5 +40,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   attackSpeed: 4
-  health: 10
+  maxHealth: 100
+  health: 100
   damage: 5

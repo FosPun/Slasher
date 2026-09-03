@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 [CreateAssetMenu(fileName = "AttackSO", menuName = "Scriptable Objects/AttackSO")]
 public class AttackSO : ScriptableObject
 {
     public AttackInput attackInput;
+    public Sprite iconSprite;
     public string animationLabel;
     public int cost;
     [Header("Combat Stats")] 

@@ -3,23 +3,14 @@ using UnityEngine;
 
 public class SkillPointsManager : MonoBehaviour
 {
-    public Action OnSkillPointsChanged;
+    public Action<int> OnSkillPointsChanged;
     public int SkillPoints => _skillPoints;
     
     private int _skillPoints = 0;
-
-
-    private void OnEnable()
-    {
-    }
-
-    private void OnDisable()
-    {
-    }
-
-    public void AddPoints(int amount)
+    
+    public void ChangePoints(int amount)
     {
         _skillPoints += amount;
-        Debug.Log("Coins: " + _skillPoints);
+        OnSkillPointsChanged?.Invoke(_skillPoints);
     }
 }
